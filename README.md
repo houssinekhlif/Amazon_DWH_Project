@@ -38,7 +38,7 @@
 
 ### **3. Dimensional Modeling**
    - Developed **star schema** for efficient querying  
-     *(Dir: Dimensional Modeling)*
+     *(Dir: Dimensional Model)*
 
 ### **4. ETL Process**
    - **Extraction and Loading:** Using Python for data pipeline creation  
