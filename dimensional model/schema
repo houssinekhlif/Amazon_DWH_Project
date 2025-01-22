@@ -1,0 +1,111 @@
+# STAR Schema Design
+
+## Fact Table: Sales Fact
+**Table Name:** `Sales_Fact`
+
+### Keys:
+- **`Trans_ID`** (Primary Key)
+- **`Product_ID`** (Foreign Key to Product Dimension)
+- **`Store_ID`** (Foreign Key to Store Dimension)
+- **`Customer_ID`** (Foreign Key to Customer Dimension)
+- **`Date`** (Foreign Key to Date Dimension)
+- **`GDP_ID`** (Foreign Key to GDP Dimension)
+- **`Global_Sales_ID`** (Foreign Key to Global Sales Dimension)
+
+### Measures:
+- **`Revenue`**: Derived from `UnitPrice × Quantity`.
+- **`Units_Sold`**: Total units sold.
+- **`Discount_Applied`**: Difference between `OriginalPrice` and `UnitPrice`.
+- **`Cost`**: Derived or inferred if available.
+- **`Profit`**: Calculated as `Revenue - Cost`.
+
+---
+
+## Dimension Tables
+
+### 1. Product Dimension
+**Table Name:** `Product_Dimension`
+
+#### Attributes:
+- **`Product_ID`** (Primary Key)
+- **`Category`**
+- **`Title`**
+- **`Price`**
+- **`Material`** (Optional, if data exists)
+- **`Cost`**
+
+---
+
+### 2. Store Dimension
+**Table Name:** `Store_Dimension`
+
+#### Attributes:
+- **`Store_ID`** (Primary Key)
+- **`StoreName`**
+- **`Location`**
+- **`State`**
+- **`OpeningDate`**
+- **`TotalEmployees`**
+- **`AnnualRevenue`**
+
+---
+
+### 3. Customer Dimension
+**Table Name:** `Customer_Dimension`
+
+#### Attributes:
+- **`Customer_ID`** (Primary Key)
+- **`Name`**
+- **`Gender`**
+- **`Age`**
+- **`State`**
+- **`Income_Category`** (Optional)
+- **`Marital_Status`** (Optional)
+
+---
+
+### 4. Date Dimension
+**Table Name:** `Date_Dimension`
+
+#### Attributes:
+- **`Date`** (Primary Key)
+- **`Day`**
+- **`Month`**
+- **`Year`**
+- **`Quarter`**
+- **`Weekday`**
+
+---
+
+### 5. GDP Dimension
+**Table Name:** `GDP_Dimension`
+
+#### Attributes:
+- **`GDP_ID`** (Primary Key)
+- **`Country`**
+- **`Year`**
+- **`GDP_Value`**
+- **`GDP_Growth_Rate`**
+
+---
+
+### 6. Global Sales Dimension
+**Table Name:** `Global_Sales_Dimension`
+
+#### Attributes:
+- **`Global_Sales_ID`** (Primary Key)
+- **`Order_ID`**: Unique identifier for the transaction.
+- **`Order_Date`**: Date of the transaction.
+- **`Product_Category`**: Category of the product.
+- **`Store_Location`**: Geographic location of the store.
+- **`Customer_Age`**: Age of the customer.
+- **`Customer_Gender`**: Gender of the customer.
+- **`Revenue`**: Total revenue for the transaction.
+- **`Profit`**: Total profit for the transaction.
+
+---
+
+## Notes
+- This schema is designed to facilitate efficient querying and reporting on sales data, incorporating external factors such as GDP and global sales metrics.
+- Dimensions are denormalized to ensure simplicity and ease of use.
+- All foreign keys in the fact table link to the primary keys of their respective dimension tables.
