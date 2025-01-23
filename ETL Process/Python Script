@@ -1,45 +1,50 @@
 ##data cleaning
 import pandas as pd
 
-# Load the datasets
-geographical_data = pd.read_csv("C:/Users/Moona/Downloads/Geographical_and_Market_Data.csv")
-demographic_data = pd.read_csv("C:/Users/Moona/Downloads/Demographic_and_Economic_Data.csv")
+def clean_data(file_path):
+    # Load the data
+    data = pd.read_csv(file_path)
 
-# Define a function to clean a dataframe
-def clean_dataframe(df):
-    # Remove duplicates
-    df = df.drop_duplicates()
+    # Drop duplicate rows
+    data = data.drop_duplicates()
 
-    # Handle missing values
-    df = df.fillna({
-        col: df[col].median() if df[col].dtype in ['float64', 'int64'] else "Unknown"
-        for col in df.columns
-    })
+    # Handle missing values (e.g., fill with median for numeric columns)
+    for column in data.columns:
+        if data[column].dtype in ['int64', 'float64']:
+            data[column] = data[column].fillna(data[column].median())
+        else:
+            data[column] = data[column].fillna('Unknown')
 
-    # Standardize column names
-    df.columns = [col.strip().replace(" ", "_").lower() for col in df.columns]
+    # Strip whitespace from column names
+    data.columns = data.columns.str.strip()
 
-    # Convert data types where applicable
-    for col in df.select_dtypes(include=['object']).columns:
-        if df[col].nunique() / len(df) < 0.05:  # Categorical if less than 5% unique values
-            df[col] = df[col].astype("category")
+    # Rename columns for consistency (optional: customize as needed)
+    data.rename(columns=lambda x: x.strip().replace(" ", "_"), inplace=True)
 
-    return df
+    # Ensure numeric columns are correctly typed
+    for column in data.select_dtypes(include=['object']).columns:
+        try:
+            data[column] = pd.to_numeric(data[column])
+        except ValueError:
+            pass
 
-# Clean both datasets
-cleaned_geographical_data = clean_dataframe(geographical_data)
-cleaned_demographic_data = clean_dataframe(demographic_data)
+    # Return the cleaned DataFrame
+    return data
 
-# Save cleaned datasets
-cleaned_geographical_data_path = "C:/Users/Moona/Downloads/Cleaned_Geographical_Data.csv"
-cleaned_demographic_data_path = "C:/Users/Moona/Downloads/Cleaned_Demographic_Data.csv"
+# File paths
+file_path_geographical = 'C:/Users/moona/Downloads/Geographical_Data.csv'
+file_path_demographic = 'C:/Users/moona/Downloads/Demographic_Data.csv'
 
-cleaned_geographical_data.to_csv(cleaned_geographical_data_path, index=False)
-cleaned_demographic_data.to_csv(cleaned_demographic_data_path, index=False)
+# Clean the datasets
+cleaned_geographical_data = clean_data(file_path_geographical)
+cleaned_demographic_data = clean_data(file_path_demographic)
 
-print("Cleaned datasets saved:")
-print(f"- {cleaned_geographical_data_path}")
-print(f"- {cleaned_demographic_data_path}")
+# Save cleaned data to new files
+cleaned_geographical_data.to_csv('C:/Users/moona/Downloads/Cleaned_Geographical_Data.csv', index=False)
+cleaned_demographic_data.to_csv('C:/Users/moona/Downloads/Cleaned_Demographic_Data.csv', index=False)
+
+print("Datasets have been cleaned and saved.")
+
 
 ##Star schema code:  upload to csv files
 import pandas as pd
