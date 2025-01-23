@@ -1,8 +1,9 @@
+##data cleaning
 import pandas as pd
 
 # Load the datasets
-geographical_data = pd.read_csv("C:/Users/Moona/Downloads/Updated_Geographical_and_Market_Data.csv")
-demographic_data = pd.read_csv("C:/Users/Moona/Downloads/Updated_Demographic_and_Economic_Data.csv")
+geographical_data = pd.read_csv("C:/Users/Moona/Downloads/Geographical_and_Market_Data.csv")
+demographic_data = pd.read_csv("C:/Users/Moona/Downloads/Demographic_and_Economic_Data.csv")
 
 # Define a function to clean a dataframe
 def clean_dataframe(df):
@@ -40,7 +41,7 @@ print("Cleaned datasets saved:")
 print(f"- {cleaned_geographical_data_path}")
 print(f"- {cleaned_demographic_data_path}")
 
-Star schema code:  csv files
+##Star schema code:  upload to csv files
 import pandas as pd
 
 # Load datasets
@@ -104,8 +105,9 @@ sales_fact.to_csv(output_paths["Sales Fact Table"], index=False)
 
 print("Star schema created and saved:")
 for name, path in output_paths.items():
-    print(f"- {name}: {path}")
-Python code to save star schema as sql files
+    print(f"- {name}: {path}") 
+
+##Star schema code:  upload to sql files
  import pandas as pd
 
 # Load datasets
