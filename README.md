@@ -2,10 +2,14 @@
 **About the Project**
 This project focuses on optimizing the performance of Amazon’s operations by creating a data warehouse (DWH) and leveraging analytical tools to derive insights. The primary goal is to enhance decision-making processes, improve resource allocation, and support strategic planning
 ## **Key questions identified for this project:**
-**Which product categories and subcategories perform best?**
+**Which product categories and subcategories perform best?** 
+
 **What regions exhibit the highest sales and customer engagement?**
-**How can marketing campaigns be optimized for better ROI?**
-**What are the seasonal trends and customer purchasing behaviors?**
+ 
+**How can marketing campaigns be optimized for better ROI?** 
+
+**What are the seasonal trends and customer purchasing behaviors?** 
+
 **Which operational inefficiencies can be mitigated to improve performance?**
 
    
