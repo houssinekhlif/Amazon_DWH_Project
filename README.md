@@ -1,27 +1,13 @@
 # **IT300-Project**
-## **Amazon Performance Optimization Dashboard**
+**1.1 About the Project**
+This project focuses on optimizing the performance of Amazon’s operations by creating a data warehouse (DWH) and leveraging analytical tools to derive insights. The primary goal is to enhance decision-making processes, improve resource allocation, and support strategic planning
+**Key questions identified for this project:**
+Which product categories and subcategories perform best?
+What regions exhibit the highest sales and customer engagement?
+How can marketing campaigns be optimized for better ROI?
+What are the seasonal trends and customer purchasing behaviors?
+Which operational inefficiencies can be mitigated to improve performance?
 
-**Amazon** is a global leader in e-commerce, delivering a wide range of products to customers worldwide. The company operates across diverse regions, focusing on optimizing its operations to maintain its competitive edge. To achieve this, Amazon continuously evaluates its performance metrics, product offerings, and customer behavior to set new strategies for future growth. Key departments such as **Logistics, Marketing, and Data Analytics** collaborate to ensure operational efficiency and customer satisfaction.
-
----
-
-### **Key Questions**
-1. **Which product categories generate the highest profits, and which underperform in various regions?**  
-
-
-2. **Which regions are top-performing based on sales, and which require operational improvements?**  
-   
-
-3. **How do customer behaviors differ across demographics such as age, gender, income, and location?**  
-
-
-4. **What are the peak shopping days, times, and seasons that maximize sales? How do seasonal trends (e.g., holidays) affect performance?**  
-   
-
-5. **How effective is Amazon's inventory management in terms of stock availability and delivery efficiency?**  
-
-
-6. **What impact do Amazon's marketing campaigns have on driving sales and fostering customer retention?**  
    
 
 ---
