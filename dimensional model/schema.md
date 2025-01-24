@@ -13,7 +13,8 @@
 - **Price**: Numeric value representing the price of the product
 - **Revenue**: Total revenue generated
 - **Units_Sold**: Number of units sold
-- **Region**: Foreign Key to `Geography_Dimension`
+- **Region_Geo**: Foreign Key to `Geography_Dimension`
+- **Region_Demo**: Foreign Key to `Demographics_Dimension`
 
 ---
 
@@ -93,7 +94,7 @@
 ### f. `Demographics_Dimension`
 
 #### Primary Key
-- **Region** (Foreign Key to `Geography_Dimension`)
+- **Region** 
 
 #### Attributes
 - **Population**: Population of the region
