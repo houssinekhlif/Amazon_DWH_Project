@@ -12,7 +12,7 @@
 2. **Which regions are top-performing based on sales, and which require operational improvements?**  
    
 
-3. **How do customer behaviors differ across demographics such as age, income, and location?**  
+3. **How do customer behaviors differ across demographics such as age, gender, income, and location?**  
 
 
 4. **What are the peak shopping days, times, and seasons that maximize sales? How do seasonal trends (e.g., holidays) affect performance?**  
