@@ -31,27 +31,27 @@ def clean_data(file_path):
     return data
 
 # File paths
-file_path_geographical = 'C:/Users/moona/Downloads/Geographical_Data.csv'
-file_path_demographic = 'C:/Users/moona/Downloads/Demographic_Data.csv'
+file_path_geographical = 'C:/Users/21650/Downloads/New_script/Geographical_Data.csv'
+file_path_demographic = 'C:/Users/21650/Downloads/New_script/Demographic_Data.csv'
 
 # Clean the datasets
 cleaned_geographical_data = clean_data(file_path_geographical)
 cleaned_demographic_data = clean_data(file_path_demographic)
 
 # Save cleaned data to new files
-cleaned_geographical_data.to_csv('C:/Users/moona/Downloads/Cleaned_Geographical_Data.csv', index=False)
-cleaned_demographic_data.to_csv('C:/Users/moona/Downloads/Cleaned_Demographic_Data.csv', index=False)
+cleaned_geographical_data.to_csv('C:/Users/21650/Downloads/New_script_output/Cleaned_Geographical_Data.csv', index=False)
+cleaned_demographic_data.to_csv('C:/Users/21650/Downloads/New_script_output/Cleaned_Demographic_Data.csv', index=False)
 
 print("Datasets have been cleaned and saved.")
 
 # Star schema creation
 # Load datasets
-sales_data = pd.read_csv("C:/Users/Moona/Downloads/Sales.csv")
-inventory_data = pd.read_csv("C:/Users/Moona/Downloads/Inventory.csv")
-clients_data = pd.read_csv("C:/Users/Moona/Downloads/Clients.csv")
-stores_data = pd.read_csv("C:/Users/Moona/Downloads/Stores.csv")
-cleaned_geographical_data = pd.read_csv("C:/Users/Moona/Downloads/Cleaned_Geographical_Data.csv")
-cleaned_demographic_data = pd.read_csv("C:/Users/Moona/Downloads/Cleaned_Demographic_Data.csv")
+sales_data = pd.read_csv("C:/Users/21650/Downloads/New_script/Sales.csv")
+inventory_data = pd.read_csv("C:/Users/21650/Downloads/New_script/Inventory.csv")
+clients_data = pd.read_csv("C:/Users/21650/Downloads/New_script/Clients.csv")
+stores_data = pd.read_csv("C:/Users/21650/Downloads/New_script/Stores.csv")
+cleaned_geographical_data = pd.read_csv("C:/Users/21650/Downloads/New_script_output/Cleaned_Geographical_Data.csv")
+cleaned_demographic_data = pd.read_csv("C:/Users/21650/Downloads/New_script_output/Cleaned_Demographic_Data.csv")
 
 # Remove duplicate Customer_ID rows in clients_data
 clients_data = clients_data.drop_duplicates(subset=['Customer_ID'])
@@ -88,13 +88,13 @@ sales_fact['Region_Demo'] = sales_fact['Region-Geo']
 
 # Save all dimensions and the fact table as CSV files
 output_paths = {
-    "Date Dimension": "C:/Users/Moona/Downloads/Date_Dimension.csv",
-    "Product Dimension": "C:/Users/Moona/Downloads/Product_Dimension.csv",
-    "Customer Dimension": "C:/Users/Moona/Downloads/Customer_Dimension.csv",
-    "Store Dimension": "C:/Users/Moona/Downloads/Store_Dimension.csv",
-    "Geography Dimension": "C:/Users/Moona/Downloads/Geography_Dimension.csv",
-    "Demographics Dimension": "C:/Users/Moona/Downloads/Demographics_Dimension.csv",
-    "Sales Fact Table": "C:/Users/Moona/Downloads/Sales_Fact_Table.csv"
+    "Date Dimension": "C:/Users/21650/Downloads/New_script_output/Date_Dimension.csv",
+    "Product Dimension": "C:/Users/21650/Downloads/New_script_output/Product_Dimension.csv",
+    "Customer Dimension": "C:/Users/21650/Downloads/New_script_output/Customer_Dimension.csv",
+    "Store Dimension": "C:/Users/21650/Downloads/New_script_output/Store_Dimension.csv",
+    "Geography Dimension": "C:/Users/21650/Downloads/New_script_output/Geography_Dimension.csv",
+    "Demographics Dimension": "C:/Users/21650/Downloads/New_script_output/Demographics_Dimension.csv",
+    "Sales Fact Table": "C:/Users/21650/Downloads/New_script_output/Sales_Fact_Table.csv"
 }
 
 date_dimension.to_csv(output_paths["Date Dimension"], index=False)
@@ -122,7 +122,7 @@ output_paths_sql = {
 
 for filename, dataframe in output_paths_sql.items():
     table_name = filename.split('.')[0]
-    sql_file_path = f"C:/Users/Moona/Downloads/{filename}"
+    sql_file_path = f"C:/Users/21650/Downloads/New_script/{filename}"
 
     with open(sql_file_path, 'w', encoding='utf-8') as sql_file:
         # Write the CREATE TABLE statement
@@ -131,7 +131,16 @@ for filename, dataframe in output_paths_sql.items():
 
         # Write the INSERT INTO statements
         for _, row in dataframe.iterrows():
-            values = ', '.join([f"'{str(value).replace('\\'\\', '\\\\')}'" for value in row.values])  # Escape single quotes
-            sql_file.write(f"INSERT INTO {table_name} VALUES ({values});\n")
+            values = []
+            for value in row.values:
+                if isinstance(value, str):
+                    value = value.replace("'", "''")  # Escape single quotes for SQL
+                    values.append(f"'{value}'")  # Wrap strings in single quotes
+                elif pd.isna(value):
+                    values.append("NULL")  # Handle missing values
+                else:
+                    values.append(str(value))  # Convert other values to string
 
-    print(f"SQL file saved: {sql_file_path}")
+            values_str = ', '.join(values)
+            sql_file.write(f"INSERT INTO {table_name} VALUES ({values_str});\n")
+
